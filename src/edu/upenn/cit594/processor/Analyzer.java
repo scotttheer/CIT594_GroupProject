@@ -9,9 +9,15 @@ import edu.upenn.cit594.data.AllProperties;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.Population;
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.logging.Logger;
 
 public class Analyzer {
 
+	protected Logger log;
+	
+	public Analyzer(Logger logger) {
+		log = logger;
+	}
 
 	public int totalPopulationForAllZIPCodes(Population population) {
 		int totalPopulation = 0;
@@ -86,10 +92,11 @@ public class Analyzer {
 		//use strategy design patter
 		System.out.println("Enter a ZIP code");
 		Scanner in = new Scanner(System.in);
-
+		
+		String userZIP = in.nextLine();
+		log.logUserZip(userZIP);
 		try {
-
-			int ZIPCode = Integer.parseInt(in.nextLine());
+			int ZIPCode = Integer.parseInt(userZIP);
 			double total = 0;
 			int numOfResidences = 0;
 
@@ -128,9 +135,10 @@ public class Analyzer {
 		Scanner in = new Scanner(System.in);
 
 		//how to throw exception when the input cannot be parsed
-
+		String userZIP = in.nextLine();
+		log.logUserZip(userZIP);
 		try {
-			int ZIPCode = Integer.parseInt(in.nextLine());
+			int ZIPCode = Integer.parseInt(userZIP);
 			double totalResidentalMarketValue = 0;
 
 			//return 0 when population is 0, or is not listed
@@ -190,12 +198,5 @@ public class Analyzer {
 
 		return ZIPCodeWithHighestMarketValue;
 	}
-
-
-
-
-
-
-
 
 }

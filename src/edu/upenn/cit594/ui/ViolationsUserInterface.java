@@ -26,17 +26,21 @@ public class ViolationsUserInterface {
 		pop = population;
 	}
 	
-	public int getUserAction() {
+	public int getUserAction(boolean first) {
 		boolean invalidNumFlag = false;
 		int userAction;
-		System.out.print("Action options:\n 0 to exit,\n" +
-				" 1 to show total ZIP Code population,\n" + 
-				" 2 to show each ZIP Code's total parking fines per capita,\n" +
-				" 3 to show specified ZIP Code's average residence market value,\n" +
-				" 4 to show specified ZIP Code's average total liveable area for residences,\n" +
-				" 5 to show specified ZIP Code's total residential market value per capita,\n" +
-				" 6 to show the zip code with the highest total market value.\n" + 
-				"Enter desired action:\n");
+		if (first) {
+			System.out.print("Action options:\n 0 to exit,\n" +
+					" 1 to show total ZIP Code population,\n" + 
+					" 2 to show each ZIP Code's total parking fines per capita,\n" +
+					" 3 to show specified ZIP Code's average residence market value,\n" +
+					" 4 to show specified ZIP Code's average total liveable area for residences,\n" +
+					" 5 to show specified ZIP Code's total residential market value per capita,\n" +
+					" 6 to show the zip code with the highest total market value.\n" + 
+					"Enter desired action:\n");
+		}else {
+			System.out.print("Please select a new action!: ");
+		}
 		do {
 			if(invalidNumFlag) {
 				System.out.println("Please select a valid option number!: ");
@@ -61,24 +65,29 @@ public class ViolationsUserInterface {
 				System.exit(0);
 				break;
 			case 1:
-				analysis.totalPopulationForAllZIPCodes(pop);
+				int totalPop = analysis.totalPopulationForAllZIPCodes(pop);
+				System.out.println(totalPop);
 			    break;
 			case 2:
 				analysis.totalFinesPerCapita(allParkViolations, pop);
 			    break;
 			case 3:
 				calcMethod = new CalculateByResidentialMarketValue();
-				analysis.averageResidentialMarketValueOrTotalLivableArea(allProps, calcMethod);
+				int avgMarketVal = analysis.averageResidentialMarketValueOrTotalLivableArea(allProps, calcMethod);
+				System.out.println(avgMarketVal);
 				break;
 			case 4:
 				calcMethod = new CalculateByResidentialTotalLivableArea();
-				analysis.averageResidentialMarketValueOrTotalLivableArea(allProps, calcMethod);
+				int totalLiveableArea = analysis.averageResidentialMarketValueOrTotalLivableArea(allProps, calcMethod);
+				System.out.println(totalLiveableArea);
 				break;
 			case 5:
-				analysis.totalResidentialMarketValuePerCapita(allProps, pop);
+				int mvPerCapita = analysis.totalResidentialMarketValuePerCapita(allProps, pop);
+				System.out.println(mvPerCapita);
 				break;
 			case 6:
-				analysis.highestAverageMarketValue(allProps);
+				int highestAvgMV = analysis.highestAverageMarketValue(allProps);
+				System.out.println(highestAvgMV);
 				break;
 		}
 	}
