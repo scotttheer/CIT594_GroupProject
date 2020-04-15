@@ -1,4 +1,13 @@
 # CIT594_GroupProject
+4/15 Updates
+- Added logger class, added logging functionality to main and analyzer classes
+- Updated Main class to run UI, updated UI class
+I believe we have two things left to finish and then we are done:
+  1) Get the csv reader to work on the comma issue
+  2) Add "memoization" wrapper to each of the 6 methods in Analyzer
+
+Scott
+
 4/14 Updates
 - Completed a first draft of the code's Main and UI classes. Haven't done the logger classes yet. I updated a few part of your code to integrate with the Main class:
   1) Reader classes take in a file instead of a string filename (easier for me from the Main)
