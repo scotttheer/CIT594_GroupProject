@@ -82,10 +82,6 @@ public class ParkingViolation {
 	public void setZIPCode(int zIPCode) {
 		ZIPCode = zIPCode;
 	}
-
-	
-
-
 }
 
 

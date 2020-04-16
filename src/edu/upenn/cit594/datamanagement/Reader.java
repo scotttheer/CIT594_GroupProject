@@ -62,8 +62,8 @@ public class Reader {
 			int indexForZIPCode = 0;
 
 
-			//need to figure out the comma issue within quotations
-			String[] firstRow = in.nextLine().split(",");
+			//https://stackoverflow.com/questions/18893390/splitting-on-comma-outside-quotes
+			String[] firstRow = in.nextLine().split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
 
 			for(int i = 0; i <= firstRow.length - 1; i++) {
 				if(firstRow[i].equals("market_value")) {
@@ -80,7 +80,7 @@ public class Reader {
 			while(in.hasNextLine()) {
 
 				//need to figure out the comma issue within quotations!!!
-				String[] data = in.nextLine().split(",");
+				String[] data = in.nextLine().split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
 
 				//if the field is missing, use -1;
 

@@ -1,0 +1,4 @@
+1587062828494 json parking.json properties.csv population.txt log.txt
+1587062828497 file: population.txt
+1587062828556 file: parking.json
+1587062829319 file: properties.csv

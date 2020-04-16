@@ -1,6 +1,7 @@
 package edu.upenn.cit594.datamanagement;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class ReadInJson implements ReadMethod{
-	
+
 	@Override
 	public AllParkingViolations read(File f) {
 		ArrayList<ParkingViolation> allParkingViolations = new ArrayList<>();
@@ -29,28 +30,39 @@ public class ReadInJson implements ReadMethod{
 			while(iter.hasNext()) {
 				JSONObject p = iter.next();
 
-				String time = (String) p.get("date");
+				String time;
+				double fine;
+				String description;
+				String identifierForVehicle;
+				String state;
+				String identiferForThisViolation;
+				int ZIPCode; 
 
-				//if the field is empty, what will be returned with casting
-				double fine = (double) p.get("fine");
+				//error handeling mechanism for JSON
 
-				String description = (String) p.get("violation");
+				try {
 
-				String identifierForVehicle = (String) p.get("plate_id");
+					time = (String) p.get("date");	
 
-				String state = (String) p.get("state");
+					description = (String) p.get("violation");
 
-				String identiferForThisViolation = (String) p.get("ticket_number");
+					identifierForVehicle = (String) p.get("plate_id");
 
-				int ZIPCode = (int) p.get("zip_code");
+					state = (String) p.get("state");
 
-				//how to filter through invalid row of input
-				if(!time.equals(null) && fine != -1 && !description.equals(null) && !identifierForVehicle.equals(null)
-						&& !state.equals(null) && !identiferForThisViolation.equals(null) && ZIPCode != -1) {
+					identiferForThisViolation = (String) p.get("ticket_number");
+
+					fine = (double) p.get("fine");
+
+					ZIPCode = (int) p.get("zip_code");
+
 					ParkingViolation v = new ParkingViolation(time, fine, description, identifierForVehicle, state, identiferForThisViolation, ZIPCode);
-					allParkingViolations.add(v);
-				}
 
+					allParkingViolations.add(v);
+
+				} catch (ClassCastException e) {
+					//ingore this object since it is not well formated
+				}
 			}
 			AllParkingViolations allParkingViolationsInfo = new AllParkingViolations();
 			allParkingViolationsInfo.setAllParkingViolations(allParkingViolations);

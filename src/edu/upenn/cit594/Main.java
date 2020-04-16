@@ -1,6 +1,7 @@
 package edu.upenn.cit594;
 
 import java.io.File;
+
 import java.io.IOException;
 
 import edu.upenn.cit594.data.AllParkingViolations;
@@ -60,10 +61,11 @@ public class Main {
 		Reader rdr = new Reader(allProps, allParkViolations, pop);
 		log.logOpenedFiles(populationFile);
 		rdr.readPopulation(populationFile);
-		log.logOpenedFiles(propertyValuesFile);
-		rdr.readProperties(propertyValuesFile);
 		log.logOpenedFiles(violationsFile);
 		rdr.readParkingViolations(formatViolationsFile, violationsFile);
+		log.logOpenedFiles(propertyValuesFile);
+		rdr.readProperties(propertyValuesFile);
+
 		
 		//Run UI and specified analysis
 		Analyzer analysis = new Analyzer(log);
