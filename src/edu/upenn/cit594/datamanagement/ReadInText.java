@@ -45,15 +45,4 @@ public class ReadInText implements ReadMethod{
 		}
 		return null;
 	}
-
-
-
-
-	/*public static void main(String[] args) {
-		ReadInText a = new ReadInText();
-		AllParkingViolations b = a.read("parking.csv");
-		int c = b.getAllParkingViolations().size();
-		System.out.println(c);
-	}*/
-
 }

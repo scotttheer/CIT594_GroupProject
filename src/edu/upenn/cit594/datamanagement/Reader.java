@@ -104,9 +104,9 @@ public class Reader {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("File not found");
 		} catch(NumberFormatException e) {
-			e.printStackTrace();
+			System.out.println("Something wrong with the format of the input file");
 		}
 	}
 

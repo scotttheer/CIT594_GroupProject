@@ -65,28 +65,28 @@ public class ViolationsUserInterface {
 				System.exit(0);
 				break;
 			case 1:
-				int totalPop = analysis.totalPopulationForAllZIPCodes(pop);
+				int totalPop = analysis.questionOne(pop);
 				System.out.println(totalPop);
 			    break;
 			case 2:
-				analysis.totalFinesPerCapita(allParkViolations, pop);
+				analysis.questionTwo(allParkViolations, pop);
 			    break;
 			case 3:
 				calcMethod = new CalculateByResidentialMarketValue();
-				int avgMarketVal = analysis.averageResidentialMarketValueOrTotalLivableArea(allProps, calcMethod);
+				int avgMarketVal = analysis.questionThreeOrFour(allProps, calcMethod);
 				System.out.println(avgMarketVal);
 				break;
 			case 4:
 				calcMethod = new CalculateByResidentialTotalLivableArea();
-				int totalLiveableArea = analysis.averageResidentialMarketValueOrTotalLivableArea(allProps, calcMethod);
+				int totalLiveableArea = analysis.questionThreeOrFour(allProps, calcMethod);
 				System.out.println(totalLiveableArea);
 				break;
 			case 5:
-				int mvPerCapita = analysis.totalResidentialMarketValuePerCapita(allProps, pop);
+				int mvPerCapita = analysis.questionFive(allProps, pop);
 				System.out.println(mvPerCapita);
 				break;
 			case 6:
-				int highestAvgMV = analysis.highestAverageMarketValue(allProps);
+				int highestAvgMV = analysis.questionSix(allProps);
 				System.out.println(highestAvgMV);
 				break;
 		}

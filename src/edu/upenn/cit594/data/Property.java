@@ -26,7 +26,4 @@ public class Property {
 	public int getZIPCode() {
 		return ZIPCode;
 	}
-
-
-
 }
