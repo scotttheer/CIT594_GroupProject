@@ -1,29 +1,29 @@
 package edu.upenn.cit594.datamanagement;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 
 import java.io.FileReader;
+import java.util.LinkedList;
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.AllParkingViolations;
-import edu.upenn.cit594.data.AllProperties;
+import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.Population;
 import edu.upenn.cit594.data.Property;
 
 public class Reader {
 
-	private AllProperties allProperties;
-	private AllParkingViolations allParkingViolations;
+	private LinkedList<Property> allProperties;
+	private LinkedList<ParkingViolation> allParkingViolations;
 	private Population population;
 
-	public Reader(AllProperties allProp, AllParkingViolations allParkViol, Population pop) {
-		/*allProperties = new AllProperties();
-		allParkingViolations = new AllParkingViolations();
-		population = new Population();*/
-		allProperties = allProp;
-		allParkingViolations = allParkViol;
-		population = pop;
+	public Reader() {
+
+		allProperties = new LinkedList<Property>();
+		allParkingViolations = new LinkedList<ParkingViolation>();
+		population = new Population();
+
 	}
 
 	public void readPopulation(File f) {
@@ -99,7 +99,7 @@ public class Reader {
 
 					Property p = new Property(marketValue, totalLivableArea, ZIPCode);
 
-					allProperties.getAllProperties().add(p);
+					allProperties.add(p);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -122,35 +122,30 @@ public class Reader {
 		}
 	}
 
-
-	public AllProperties getAllProperties() {
+	public LinkedList<Property> getAllProperties() {
 		return allProperties;
 	}
 
-
-	public void setAllProperties(AllProperties allProperties) {
+	public void setAllProperties(LinkedList<Property> allProperties) {
 		this.allProperties = allProperties;
 	}
 
-
-	public AllParkingViolations getAllParkingViolations() {
+	public LinkedList<ParkingViolation> getAllParkingViolations() {
 		return allParkingViolations;
 	}
 
-
-	public void setAllParkingViolations(AllParkingViolations allParkingViolations) {
+	public void setAllParkingViolations(LinkedList<ParkingViolation> allParkingViolations) {
 		this.allParkingViolations = allParkingViolations;
 	}
-
 
 	public Population getPopulation() {
 		return population;
 	}
 
-
 	public void setPopulation(Population population) {
 		this.population = population;
 	}
+
 
 
 

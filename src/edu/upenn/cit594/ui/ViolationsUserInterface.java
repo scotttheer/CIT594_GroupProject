@@ -1,10 +1,12 @@
 package edu.upenn.cit594.ui;
 
+import java.util.LinkedList;
+
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.AllParkingViolations;
-import edu.upenn.cit594.data.AllProperties;
+import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.Population;
+import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.processor.Analyzer;
 import edu.upenn.cit594.processor.CalculateByResidentialMarketValue;
 import edu.upenn.cit594.processor.CalculateByResidentialTotalLivableArea;
@@ -14,11 +16,11 @@ public class ViolationsUserInterface {
 	
 	protected Scanner user;
 	protected Analyzer analysis;
-	protected AllProperties allProps;
-	protected AllParkingViolations allParkViolations;
+	protected LinkedList<Property> allProps;
+	protected LinkedList<ParkingViolation> allParkViolations;
 	protected Population pop;
 	
-	public ViolationsUserInterface(Analyzer analyzer, AllProperties allProperties, AllParkingViolations allParking, Population population) {
+	public ViolationsUserInterface(Analyzer analyzer, LinkedList<Property> allProperties, LinkedList<ParkingViolation> allParking, Population population) {
 		user = new Scanner(System.in);
 		analysis = analyzer;
 		allProps = allProperties;

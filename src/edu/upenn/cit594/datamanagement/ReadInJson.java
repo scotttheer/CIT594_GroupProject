@@ -2,13 +2,13 @@ package edu.upenn.cit594.datamanagement;
 
 import java.io.File;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
-import edu.upenn.cit594.data.AllParkingViolations;
 import edu.upenn.cit594.data.ParkingViolation;
 
 import org.json.simple.*;
@@ -18,8 +18,10 @@ import org.json.simple.parser.ParseException;
 public class ReadInJson implements ReadMethod{
 
 	@Override
-	public AllParkingViolations read(File f) {
-		ArrayList<ParkingViolation> allParkingViolations = new ArrayList<>();
+	public LinkedList<ParkingViolation> read(File f) {
+		
+		LinkedList<ParkingViolation> allParkingViolations = new LinkedList<>(); 
+		
 		JSONParser parser = new JSONParser();
 
 		try {
@@ -64,9 +66,7 @@ public class ReadInJson implements ReadMethod{
 					//ingore this object since it is not well formated
 				}
 			}
-			AllParkingViolations allParkingViolationsInfo = new AllParkingViolations();
-			allParkingViolationsInfo.setAllParkingViolations(allParkingViolations);
-			return allParkingViolationsInfo;
+			return allParkingViolations;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +77,6 @@ public class ReadInJson implements ReadMethod{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return allParkingViolations;
 	}
 }

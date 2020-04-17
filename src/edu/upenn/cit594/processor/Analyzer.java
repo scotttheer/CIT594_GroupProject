@@ -2,11 +2,11 @@ package edu.upenn.cit594.processor;
 
 import java.util.HashMap;
 
+
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.AllParkingViolations;
-import edu.upenn.cit594.data.AllProperties;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.Population;
 import edu.upenn.cit594.data.Property;
@@ -57,7 +57,7 @@ public class Analyzer {
 		answerForQuestionOne = totalPopulation; //for memoization
 	}
 
-	public void questionTwo(AllParkingViolations allParkingViolations, 
+	public void questionTwo(LinkedList<ParkingViolation> allParkingViolations, 
 			Population population) {
 
 		if(answerForQuestionTwo == null) {
@@ -86,7 +86,7 @@ public class Analyzer {
 	}
 
 
-	public void totalFinesPerCapita(AllParkingViolations allParkingViolations, 
+	public void totalFinesPerCapita(LinkedList<ParkingViolation> allParkingViolations, 
 			Population population) {
 
 		//key is ZIP code, value is total fine from that zip code 
@@ -95,7 +95,7 @@ public class Analyzer {
 		//key is ZIP code, value is total fine per Capita from that zip code 
 		HashMap<Integer, Double> totalFinesperCapita = new HashMap<Integer, Double>();
 
-		for(ParkingViolation v : allParkingViolations.getAllParkingViolations()) {
+		for(ParkingViolation v : allParkingViolations) {
 
 			//ignore it when ZIP code is unknown
 			//ignore it when plate state is not "PA
@@ -128,7 +128,7 @@ public class Analyzer {
 
 	}
 
-	public int questionThreeOrFour(AllProperties allProperties, 
+	public int questionThreeOrFour(LinkedList<Property> allProperties, 
 			CalculateMethod calculateMethod) {
 
 		//use strategy design patter
@@ -170,13 +170,13 @@ public class Analyzer {
 
 
 
-	public int averageResidentialMarketValueOrTotalLivableArea(AllProperties allProperties, 
+	public int averageResidentialMarketValueOrTotalLivableArea(LinkedList<Property>  allProperties, 
 			CalculateMethod calculateMethod, int ZIPCode) {
 
 		double total = 0;
 		int numOfResidences = 0;
 
-		for(Property p : allProperties.getAllProperties()) {
+		for(Property p : allProperties) {
 			if(p.getZIPCode() == ZIPCode) {
 				numOfResidences++;
 				total = total + calculateMethod.calculate(p);
@@ -195,7 +195,7 @@ public class Analyzer {
 		}
 	}
 
-	public int questionFive(AllProperties allProperties, 
+	public int questionFive(LinkedList<Property> allProperties, 
 			Population population) {
 
 		System.out.println("Enter a ZIP code");
@@ -223,7 +223,7 @@ public class Analyzer {
 	}
 
 
-	public int totalResidentialMarketValuePerCapita(AllProperties allProperties, 
+	public int totalResidentialMarketValuePerCapita(LinkedList<Property> allProperties, 
 			Population population, int ZIPCode) {
 
 		double totalResidentalMarketValue = 0;
@@ -235,7 +235,7 @@ public class Analyzer {
 
 		int capita = population.getPopulation().get(ZIPCode);
 
-		for(Property p : allProperties.getAllProperties()) {
+		for(Property p : allProperties) {
 			if(p.getZIPCode() == ZIPCode) {
 				double value = p.getMarketValue();
 				totalResidentalMarketValue = totalResidentalMarketValue + value;
@@ -246,7 +246,7 @@ public class Analyzer {
 	}
 
 
-	public int questionSix(AllProperties allProperties) {
+	public int questionSix(LinkedList<Property> allProperties) {
 		if(answerForQuestionSix != -1) {
 			highestAverageMarketValue(allProperties);
 		}
@@ -259,12 +259,12 @@ public class Analyzer {
 	 * return the zip code wit the highest total market value
 	 */
 
-	public void highestAverageMarketValue(AllProperties allProperties) {
+	public void highestAverageMarketValue(LinkedList<Property> allProperties) {
 
 		//the key is zip code, the value is the total Market Value
 		HashMap<Integer, Double> marketValueMap = new HashMap<>();
 
-		for(Property p : allProperties.getAllProperties()) {
+		for(Property p : allProperties) {
 			int ZIPCode = p.getZIPCode();
 			double value = p.getMarketValue();
 
