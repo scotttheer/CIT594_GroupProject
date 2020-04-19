@@ -60,21 +60,22 @@ public class Analyzer {
 	public void questionTwo(LinkedList<ParkingViolation> allParkingViolations, 
 			Population population) {
 
-		if(answerForQuestionTwo == null) {
+		if(answerForQuestionTwo.keySet().isEmpty()) {
+			
 			totalFinesPerCapita(allParkingViolations, 
 					population);
 		}
-
+		
 		Iterator<Integer> iter = answerForQuestionTwo.keySet().iterator();
 
 		while(iter.hasNext()) {
-
+			
 			int ZIPCode = iter.next();
 			double value = answerForQuestionTwo.get(ZIPCode);
 
 			// display any ZIP Code for which the total aggregate fines is 0 
 			//or for which the population is 0.
-			if(value != 0) {
+			if(value != 0.0) {
 
 				System.out.print(ZIPCode + " ");
 				//truncate to four digits
@@ -92,15 +93,13 @@ public class Analyzer {
 		//key is ZIP code, value is total fine from that zip code 
 		HashMap<Integer, Double> totalFines = new HashMap<Integer, Double>();
 
-		//key is ZIP code, value is total fine per Capita from that zip code 
-		HashMap<Integer, Double> totalFinesperCapita = new HashMap<Integer, Double>();
-
 		for(ParkingViolation v : allParkingViolations) {
-
+			
 			//ignore it when ZIP code is unknown
 			//ignore it when plate state is not "PA
 			//ZIP code = 0 for the case when the field for ZIP code is missing
-			if(v.getZIPCode() != 0 && v.getState().equals("PA")) {
+			if(v.getState().equals("PA")) {
+				
 				int ZIPCode = v.getZIPCode();
 				Double fine = v.getFine();
 				if(totalFines.containsKey(ZIPCode)) {
@@ -114,18 +113,20 @@ public class Analyzer {
 		HashMap<Integer, Integer> populationData = population.getPopulation();
 
 		for(Integer ZIPCode : totalFines.keySet()) {
-			double fines = totalFines.get(ZIPCode);
-			double capita = populationData.get(ZIPCode);
+			
+			if(populationData.keySet().contains(ZIPCode)) {
+				
+				double fines = totalFines.get(ZIPCode);
+				double capita = populationData.get(ZIPCode);
 
-			//ignore it when popluation for a ZIPCode is 0
-			if(!(capita == 0.0)) {
-				double finesPerCapita = fines / capita;
-				totalFinesperCapita.put(ZIPCode, finesPerCapita);
+				//ignore it when popluation for a ZIPCode is 0
+				if(capita != 0.0) {
+					
+					double finesPerCapita = fines / capita;
+					answerForQuestionTwo.put(ZIPCode, finesPerCapita);
+				}
 			}
 		}
-
-		answerForQuestionTwo = totalFinesperCapita; //for memoization
-
 	}
 
 	public int questionThreeOrFour(LinkedList<Property> allProperties, 
@@ -136,7 +137,6 @@ public class Analyzer {
 		Scanner in = new Scanner(System.in);
 
 		String userZIP = in.nextLine();
-		in.close();
 
 		log.logUserZip(userZIP);
 
@@ -204,7 +204,6 @@ public class Analyzer {
 
 		String userZIP = in.nextLine();
 		log.logUserZip(userZIP);
-		in.close();
 
 		try {
 			int ZIPCode = Integer.parseInt(userZIP);
@@ -247,7 +246,7 @@ public class Analyzer {
 
 
 	public int questionSix(LinkedList<Property> allProperties) {
-		if(answerForQuestionSix != -1) {
+		if(answerForQuestionSix == -1) {
 			highestAverageMarketValue(allProperties);
 		}
 		return answerForQuestionSix;

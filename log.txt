@@ -1,4 +1,15 @@
-1587163724902 json parking.json properties.csv population.txt log.txt
-1587163724905 file: population.txt
-1587163724985 file: parking.json
-1587163725793 file: properties.csv
+1587270561299 json parking.json properties.csv population.txt log.txt
+1587270561300 file: population.txt
+1587270561315 file: parking.json
+1587270561468 file: properties.csv
+1587270663354 selection: 1
+1587270664873 selection: 6
+1587270668953 selection: 2
+1587270671025 selection: 3
+1587270675153 ZIP Code: 19135
+1587270676705 selection: 4
+1587270679769 ZIP Code: 19135
+1587270681985 selection: 5
+1587270684465 ZIP Code: 19135
+1587270686113 selection: 6
+1587270687217 selection: 0

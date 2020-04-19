@@ -84,7 +84,7 @@ public class Reader {
 
 				//if the field is missing, use -1;
 
-				System.out.println(data[indexForMarketValue]);
+//				System.out.println(data[indexForMarketValue]);
 
 				double marketValue = data[indexForMarketValue].length() == 0 ? -1.0 : Double.parseDouble(data[indexForMarketValue]);
 				//if the field is missing, use -1;
@@ -145,8 +145,5 @@ public class Reader {
 	public void setPopulation(Population population) {
 		this.population = population;
 	}
-
-
-
 
 }

@@ -56,7 +56,6 @@ public class ViolationsUserInterface {
 		    userAction = user.nextInt();
 		} while (userAction < 0 | userAction > 6);
 		
-		user.close();
 		return(userAction);
 	}
 	

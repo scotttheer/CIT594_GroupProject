@@ -3,6 +3,7 @@ package edu.upenn.cit594.datamanagement;
 import java.io.File;
 
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,25 +46,27 @@ public class ReadInJson implements ReadMethod{
 				try {
 
 					time = (String) p.get("date");	
-
+					
 					description = (String) p.get("violation");
 
 					identifierForVehicle = (String) p.get("plate_id");
 
 					state = (String) p.get("state");
 
-					identiferForThisViolation = (String) p.get("ticket_number");
+					identiferForThisViolation = p.get("ticket_number").toString();
+					
+					fine = Double.parseDouble(p.get("fine").toString());
 
-					fine = (double) p.get("fine");
-
-					ZIPCode = (int) p.get("zip_code");
-
+					ZIPCode = Integer.parseInt(p.get("zip_code").toString());
+					
 					ParkingViolation v = new ParkingViolation(time, fine, description, identifierForVehicle, state, identiferForThisViolation, ZIPCode);
 
 					allParkingViolations.add(v);
-
+					
 				} catch (ClassCastException e) {
 					//ingore this object since it is not well formated
+				} catch (NumberFormatException a) {
+					
 				}
 			}
 			return allParkingViolations;
@@ -79,4 +82,19 @@ public class ReadInJson implements ReadMethod{
 		}
 		return allParkingViolations;
 	}
+	
+	
+	public static void main(String[] args) {
+		File f = new File("parking.csv");
+		
+		ReadInJson a = new ReadInJson();
+		
+		LinkedList<ParkingViolation> b = a.read(f);
+		
+		System.out.println(b.size());
+	}
+	
+	
+	
+	
 }

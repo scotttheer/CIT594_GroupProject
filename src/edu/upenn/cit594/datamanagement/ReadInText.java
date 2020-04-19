@@ -30,8 +30,8 @@ public class ReadInText implements ReadMethod{
 					int ZIPCode = data[6].length() == 0 ? -1 : Integer.parseInt(data[6]);
 					
 					//ignore it when the data is not properly formatted
-					if(!time.equals(null) && fine != -1 && !description.equals(null) && !identifierForVehicle.equals(null)
-							&& !state.equals(null) && !identiferForThisViolation.equals(null) && ZIPCode != -1) {
+					if(time != null && fine != -1 && description != null && identifierForVehicle != null
+							&& state != null && identiferForThisViolation != null && ZIPCode != -1) {
 						ParkingViolation p = new ParkingViolation(time, fine, description, identifierForVehicle, state, identiferForThisViolation, ZIPCode);
 						allParkingViolations.add(p);
 					}

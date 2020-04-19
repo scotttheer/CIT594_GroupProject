@@ -2,7 +2,6 @@ package edu.upenn.cit594;
 
 import java.io.File;
 
-
 import java.io.IOException;
 
 import edu.upenn.cit594.datamanagement.Reader;
@@ -63,16 +62,22 @@ public class Main {
 		rdr.readParkingViolations(formatViolationsFile, violationsFile);
 		
 		System.out.println("violation file was read");
+		System.out.println("Parking violations: " + rdr.getAllParkingViolations().size());
 		
 		log.logOpenedFiles(propertyValuesFile);
 		rdr.readProperties(propertyValuesFile);
-
+		
 		System.out.println("properties file was read");
 		
 		//Run UI and specified analysis
 		Analyzer analysis = new Analyzer(log);
 		ViolationsUserInterface vui = new ViolationsUserInterface(analysis, rdr.getAllProperties(), rdr.getAllParkingViolations(), rdr.getPopulation());
 
+		System.out.println("Properties: " + rdr.getAllProperties().size());
+		
+		System.out.println(rdr.getPopulation().getPopulation().keySet().size());
+		
+		
 		//Run user selection prompt, log choice, and call corresponding analyzer method
 		do {
 			int ret = vui.getUserAction(first);
@@ -88,6 +93,5 @@ public class Main {
 		m.run();
 
 	}
-
 }
 
