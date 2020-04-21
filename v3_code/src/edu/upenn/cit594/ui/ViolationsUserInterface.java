@@ -69,7 +69,6 @@ public class ViolationsUserInterface {
 		boolean validInput = false;
 
 		while(!validInput) {
-			try {
 			if(user.hasNextLine()) {
 				System.out.println("Please Enter a Valid ZIP: ");
 				userZip = user.nextLine();
