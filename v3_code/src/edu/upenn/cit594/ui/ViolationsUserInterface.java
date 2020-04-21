@@ -69,17 +69,20 @@ public class ViolationsUserInterface {
 		boolean validInput = false;
 
 		while(!validInput) {
-			System.out.println("Please Enter a Valid ZIP: ");
-			userZip = user.nextLine();
 			try {
-				zipCode = Integer.parseInt(userZip);
-				for(Population p : totalPopulation) {
-					if(p.getZip() == zipCode) {
-						validInput = true;
+			if(user.hasNextLine()) {
+				System.out.println("Please Enter a Valid ZIP: ");
+				userZip = user.nextLine();
+				try {
+					zipCode = Integer.parseInt(userZip);
+					for(Population p : totalPopulation) {
+						if(p.getZip() == zipCode) {
+							validInput = true;
+						}
 					}
+				} catch (NumberFormatException e) {
+
 				}
-			} catch (Exception e) {
-				System.out.println("there is something wrong with zipcode input!");
 			}
 		}
 		return zipCode;
