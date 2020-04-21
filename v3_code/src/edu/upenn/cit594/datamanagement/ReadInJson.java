@@ -48,13 +48,5 @@ public class ReadInJson implements ReadMethod{
 		return allParkingViolations;
 	}
 	
-	public static void main(String[] args) {
-		ReadInJson rdr = new ReadInJson();
-		File violationsFile = new File("parking.json");
-		LinkedList<ParkingViolation> violations = new LinkedList<ParkingViolation>();
-		violations = rdr.read(violationsFile);
-		for(ParkingViolation v: violations) {
-			System.out.println(v.getZIPCode()+": "+ v.getFine());
-		}
-	}
+	
 }

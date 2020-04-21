@@ -13,14 +13,14 @@ import edu.upenn.cit594.processor.CalculateMethod;
 import edu.upenn.cit594.logging.Logger;
 
 public class ViolationsUserInterface {
-	
+
 	protected Scanner user;
 	protected Analyzer analysis;
 	protected LinkedList<Population> totalPopulation;
 	public LinkedList<Property> allProperties;
 	public LinkedList<ParkingViolation> allViolations;
 	protected Logger log;
-	
+
 	//public ViolationsUserInterface(Analyzer analyzer, ArrayList<Population> allPop, ArrayList<Property> allProps, ArrayList<ParkingViolation> allViols, Logger logger) {
 	public ViolationsUserInterface(Analyzer analyzer, LinkedList<Population> allPop, LinkedList<Property> allProps, LinkedList<ParkingViolation> allViols, Logger logger) {
 		user = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class ViolationsUserInterface {
 		allViolations = allViols;
 		log = logger;
 	}
-	
+
 	public int getUserAction(boolean first) {
 		boolean invalidNumFlag = false;
 		int userAction;
@@ -49,83 +49,91 @@ public class ViolationsUserInterface {
 		do {
 			if(invalidNumFlag) {
 				System.out.println("Please select a valid option number!: ");
-		    }
-		    while(!user.hasNextInt()) {
-		    	System.out.println("Not a number! Please select valid action: ");
-		    	invalidNumFlag = false;
-		        user.next();
-		    }
-		    invalidNumFlag = true;
-		    userAction = user.nextInt();
+			}
+			while(!user.hasNextInt()) {
+				System.out.println("Not a number! Please select valid action: ");
+				invalidNumFlag = false;
+				user.next();
+			}
+			invalidNumFlag = true;
+			userAction = user.nextInt();
 		} while (userAction < 0 | userAction > 6);
-		
+
 		return(userAction);
 	}
-	
+
+	public int getZipCode() {
+		String userZip = "";
+		int zipCode = 0;
+
+		boolean validInput = false;
+
+		while(!validInput) {
+			System.out.println("Please Enter a Valid ZIP: ");
+			userZip = user.nextLine();
+			try {
+				zipCode = Integer.parseInt(userZip);
+				for(Population p : totalPopulation) {
+					if(p.getZip() == zipCode) {
+						validInput = true;
+					}
+				}
+			} catch (Exception e) {
+				System.out.println("there is something wrong with zipcode input!");
+			}
+		}
+		return zipCode;
+	}
+
+
+
+
 	public void callUserFunction(int userAction) {
 		CalculateMethod calcMethod;
 		Scanner in;
 		String userZIP;
 		int zip;
 		switch(userAction) {
-			case 0:
-				System.exit(0);
-				break;
-			case 1:
-				int totalPop = analysis.questionOne(totalPopulation);
-				System.out.println(totalPop);
-			    break;
-			case 2:
-				analysis.questionTwo(allViolations, totalPopulation);
-			    break;
-			case 3:
-				calcMethod = new CalculateByResidentialMarketValue();
-				System.out.println("Please Enter a ZIP: ");
-				in = new Scanner(System.in);
-				userZIP = in.nextLine();
-				log.logUserZip(userZIP);
-				try {
-					zip = Integer.parseInt(userZIP);
-					int avgMarketVal = analysis.questionThreeOrFour(zip, allProperties, calcMethod);
-					System.out.println(avgMarketVal);
-				}catch(Exception e){
-					System.out.println(0);
-				}
-				break;
-			case 4:
-				calcMethod = new CalculateByResidentialTotalLivableArea();
-				System.out.println("Please Enter a ZIP: ");
-				in = new Scanner(System.in);
-				userZIP = in.nextLine();
-				log.logUserZip(userZIP);
-				try {
-					zip = Integer.parseInt(userZIP);
-					int avgMarketVal = analysis.questionThreeOrFour(zip, allProperties, calcMethod);
-					System.out.println(avgMarketVal);
-				}catch(Exception e){
-					System.out.println(0);
-				}
-				break;
-			case 5:
-				System.out.println("Please Enter a ZIP: ");
-				in = new Scanner(System.in);
-				userZIP = in.nextLine();
-				log.logUserZip(userZIP);
-				try {
-					zip = Integer.parseInt(userZIP);
-					int mvPerCapita = analysis.questionFive(zip, allProperties, totalPopulation);
-					System.out.println(mvPerCapita);
-				}catch(Exception e){
-					System.out.println(0);
-				}
-				break;
-			case 6:
-				int highestAvgMV = analysis.questionSix(allProperties);
-				System.out.println(highestAvgMV);
-				break;
+		case 0:
+			System.exit(0);
+			break;
+		case 1:
+			int totalPop = analysis.questionOne(totalPopulation);
+			System.out.println(totalPop);
+			break;
+		case 2:
+			analysis.questionTwo(allViolations, totalPopulation);
+			break;
+		case 3:
+			calcMethod = new CalculateByResidentialMarketValue();
+			zip = getZipCode();
+			userZIP = Integer.toString(zip);
+			log.logUserZip(userZIP);
+			int avgMarketVal = analysis.questionThreeOrFour(zip, allProperties, calcMethod);
+			System.out.println(avgMarketVal);
+			break;
+		case 4:
+			calcMethod = new CalculateByResidentialTotalLivableArea();
+			zip = getZipCode();
+			userZIP = Integer.toString(zip);
+			log.logUserZip(userZIP);
+			int avgMarketVal2 = analysis.questionThreeOrFour(zip, allProperties, calcMethod);
+			System.out.println(avgMarketVal2);
+			break;
+		case 5:
+			zip = getZipCode();
+			userZIP = Integer.toString(zip);
+			log.logUserZip(userZIP);
+			int mvPerCapita = analysis.questionFive(zip, allProperties, totalPopulation);
+			System.out.println(mvPerCapita);
+			break;
+		case 6:
+			int highestAvgMV = analysis.questionSix(allProperties);
+			System.out.println(highestAvgMV);
+			break;
 		}
 	}
 
 }
 
- 
+

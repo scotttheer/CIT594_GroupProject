@@ -16,7 +16,7 @@ public class Main {
 	
 	public void run() {
 		//Exit if argument number is incorrect
-		String[] args = new String[] {"json", "parking.json", "properties.csv", "population.txt", "log.txt"};
+		String[] args = new String[] {"csv", "parking.csv", "properties.csv", "population.txt", "log.txt"};
 		boolean first = true;
 		
 		if (args.length != 5) {
