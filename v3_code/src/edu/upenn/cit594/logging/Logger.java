@@ -37,7 +37,7 @@ public class Logger {
 		printer.flush();
 	}
 	
-	//Print opened file name to log file
+	//Print user selection to log file
 	public void logUserSelection(int sel) {
 		printer.println(System.currentTimeMillis() + " selection: " + sel);
 		printer.flush();
