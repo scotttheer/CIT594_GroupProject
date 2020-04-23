@@ -21,7 +21,6 @@ public class ViolationsUserInterface {
 	public LinkedList<ParkingViolation> allViolations;
 	protected Logger log;
 
-	//public ViolationsUserInterface(Analyzer analyzer, ArrayList<Population> allPop, ArrayList<Property> allProps, ArrayList<ParkingViolation> allViols, Logger logger) {
 	public ViolationsUserInterface(Analyzer analyzer, LinkedList<Population> allPop, LinkedList<Property> allProps, LinkedList<ParkingViolation> allViols, Logger logger) {
 		user = new Scanner(System.in);
 		analysis = analyzer;
@@ -34,6 +33,8 @@ public class ViolationsUserInterface {
 	public int getUserAction(boolean first) {
 		boolean invalidNumFlag = false;
 		int userAction;
+		//if the user has not selected a valid option during this session, first=true
+		//otherwise, first=false and the options/explanations are not displayed
 		if (first) {
 			System.out.print("Action options:\n 0 to exit,\n" +
 					" 1 to show total ZIP Code population,\n" + 
@@ -47,9 +48,11 @@ public class ViolationsUserInterface {
 			System.out.print("Please select a new action!: ");
 		}
 		do {
+			//if user input is a number < 0 or > 6, invalidNumFlag=true
 			if(invalidNumFlag) {
 				System.out.println("Please select a valid option number!: ");
 			}
+			//if user input is invalid string, returns error and prompts for new input
 			while(!user.hasNextInt()) {
 				System.out.println("Not a number! Please select valid action: ");
 				invalidNumFlag = false;
@@ -57,6 +60,7 @@ public class ViolationsUserInterface {
 			}
 			invalidNumFlag = true;
 			userAction = user.nextInt();
+		//continue while input is invalid
 		} while (userAction < 0 | userAction > 6);
 
 		return(userAction);
@@ -67,7 +71,8 @@ public class ViolationsUserInterface {
 		int zipCode = 0;
 
 		boolean validInput = false;
-
+		
+		//if ZIP code input is invalid, prompt user for new valid input
 		while(!validInput) {
 			if(user.hasNextLine()) {
 				System.out.println("Please Enter a Valid ZIP: ");
@@ -87,14 +92,12 @@ public class ViolationsUserInterface {
 		return zipCode;
 	}
 
-
-
-
 	public void callUserFunction(int userAction) {
 		CalculateMethod calcMethod;
 		Scanner in;
 		String userZIP;
 		int zip;
+		//decide which action the user has input and go to that method
 		switch(userAction) {
 		case 0:
 			System.exit(0);
