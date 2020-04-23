@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.io.FileReader;
-//import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -53,10 +52,11 @@ public class Reader {
 			int indexForMarketValue = 0;
 			int indexForLivableArea = 0;
 			int indexForZIPCode = 0;
-
-			//https://stackoverflow.com/questions/18893390/splitting-on-comma-outside-quotes
+			
+			//read in data header
 			String[] firstRow = in.readLine().split(",");
 
+			//determine + store columns for relevant data fields
 			for(int i = 0; i <= firstRow.length - 1; i++) {
 				if(firstRow[i].equals("market_value")) {
 					indexForMarketValue = i;
@@ -76,17 +76,21 @@ public class Reader {
 			String line = in.readLine();
 			while(line != null) {
 
+				//split line of csv, accounting for commas included in quotes within data fields
 				String[] data = line.split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
 				
+				//try to parse strings read from input files to Doubles or Ints
 				try {
 					marketValue = Double.parseDouble(data[indexForMarketValue]);
 					totalLivableArea = Double.parseDouble(data[indexForLivableArea]);
 					ZIPCode = Integer.parseInt(data[indexForZIPCode].substring(0, 5));
+				//if entry read is invalid, catch error and continue (ignore row of data)
 				}catch(Exception e) {
 					line = in.readLine();
 					continue;
 				}
 				
+				//create new instance of Property and add to list
 				Property p = new Property(marketValue, totalLivableArea, ZIPCode);
 				allProperties.add(p);
 				
@@ -101,6 +105,8 @@ public class Reader {
 
 	public LinkedList<ParkingViolation> readParkingViolations(String format, File f) {
 		LinkedList<ParkingViolation> allViolations = new LinkedList<ParkingViolation>();
+		
+		//determine format of input file to call corresponding read method
 		if(format.equals("csv")) {
 			ReadMethod readInText = new ReadInText();
 			allViolations = readInText.read(f);
